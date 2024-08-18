@@ -3,7 +3,6 @@ package com.personal.freelance_manager.entity;
 import java.util.List;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,6 @@ public class Client {
 
     private String address;
 
-    @OneToMany
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
-    private Project project;
+    @OneToMany(mappedBy = "client")
+    private List<Project> projects;
 }
