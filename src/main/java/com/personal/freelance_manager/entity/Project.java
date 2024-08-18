@@ -1,7 +1,5 @@
 package com.personal.freelance_manager.entity;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
