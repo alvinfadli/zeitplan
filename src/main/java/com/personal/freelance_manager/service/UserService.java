@@ -26,12 +26,13 @@ public class UserService {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private ValidationService validationService;
+
     @Transactional
     public void register(RegisterUserRequest request){
-        Set<ConstraintViolation<RegisterUserRequest>> constraintViolations = validator.validate(request);
-        if(constraintViolations.size() != 0){
-            throw new ConstraintViolationException(constraintViolations);
-        }
+        
+        validationService.validate(request);
 
         //check existing user in db
         if(userRepository.existsById(request.getUsername())){
