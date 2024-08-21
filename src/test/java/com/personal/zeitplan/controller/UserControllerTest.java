@@ -3,6 +3,7 @@ package com.personal.zeitplan.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,9 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.personal.zeitplan.entity.User;
 import com.personal.zeitplan.model.RegisterUserRequest;
+import com.personal.zeitplan.model.UpdateUserRequest;
 import com.personal.zeitplan.model.UserResponse;
 import com.personal.zeitplan.model.WebResponse;
 import com.personal.zeitplan.repository.UserRepository;
+import com.personal.zeitplan.security.BCrypt;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -168,6 +171,85 @@ class UserControllerTest {
             assertNull(response.getErrors());
             assertEquals("test", response.getData().getUsername());
             assertEquals("Rusdi", response.getData().getName());
+        });
+    }
+
+    @Test
+    void getUserTokenExpired() throws Exception {
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("admin");
+        user.setName("Rusdi");
+        user.setToken("test");
+        user.setTokenExpiredAt(System.currentTimeMillis() - 100000000000L);
+        userRepository.save(user);
+
+        mockMvc.perform(
+                get("/api/users/current")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header("X-API-TOKEN", "test")
+        ).andExpectAll(
+                status().isUnauthorized()
+        ).andDo(result -> {
+            WebResponse<String> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+            });
+
+            assertNotNull(response.getErrors());
+        });
+    }
+
+    @Test
+    void updateUserUnauthorized() throws Exception {
+        UpdateUserRequest request = new UpdateUserRequest();
+
+        mockMvc.perform(
+                patch("/api/users/current")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+        ).andExpectAll(
+                status().isUnauthorized()
+        ).andDo(result -> {
+            WebResponse<String> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+            });
+
+            assertNotNull(response.getErrors());
+        });
+    }
+
+    @Test
+    void updateUserSuccess() throws Exception {
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("admin");
+        user.setName("Rusdi");
+        user.setToken("test");
+        user.setTokenExpiredAt(System.currentTimeMillis() + 100000000000L);
+        userRepository.save(user);
+
+        UpdateUserRequest request = new UpdateUserRequest();
+        request.setName("Jamal");
+        request.setPassword("jamal123");
+
+        mockMvc.perform(
+                patch("/api/users/current")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header("X-API-TOKEN","test")
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(result -> {
+            WebResponse<UserResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+            });
+
+            assertNull(response.getErrors());
+            assertEquals("Jamal", response.getData().getName());
+            assertEquals("test", response.getData().getUsername());
+
+            User userDb = userRepository.findById("test").orElse(null);
+            assertNotNull(userDb);
+            assertTrue(BCrypt.checkpw("jamal123", userDb.getPassword()));
         });
     }
 }
