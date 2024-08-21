@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.service;
+package com.personal.zeitplan.service;
 
 import java.util.UUID;
 
@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.personal.freelance_manager.entity.User;
-import com.personal.freelance_manager.model.LoginUserRequest;
-import com.personal.freelance_manager.model.TokenResponse;
-import com.personal.freelance_manager.repository.UserRepository;
-import com.personal.freelance_manager.security.BCrypt;
+import com.personal.zeitplan.entity.User;
+import com.personal.zeitplan.model.LoginUserRequest;
+import com.personal.zeitplan.model.TokenResponse;
+import com.personal.zeitplan.repository.UserRepository;
+import com.personal.zeitplan.security.BCrypt;
 
 import jakarta.transaction.Transactional;
 

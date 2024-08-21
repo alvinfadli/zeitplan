@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.service;
+package com.personal.zeitplan.service;
 
 import java.util.Set;
 

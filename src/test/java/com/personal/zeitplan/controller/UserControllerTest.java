@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.controller;
+package com.personal.zeitplan.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.personal.freelance_manager.entity.User;
-import com.personal.freelance_manager.model.RegisterUserRequest;
-import com.personal.freelance_manager.model.WebResponse;
-import com.personal.freelance_manager.repository.UserRepository;
+import com.personal.zeitplan.entity.User;
+import com.personal.zeitplan.model.RegisterUserRequest;
+import com.personal.zeitplan.model.WebResponse;
+import com.personal.zeitplan.repository.UserRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

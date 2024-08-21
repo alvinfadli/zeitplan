@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.entity;
+package com.personal.zeitplan.entity;
 
 import java.util.List;
 

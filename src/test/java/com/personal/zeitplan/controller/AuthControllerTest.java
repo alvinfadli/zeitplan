@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.controller;
+package com.personal.zeitplan.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,12 +11,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.personal.freelance_manager.entity.User;
-import com.personal.freelance_manager.model.LoginUserRequest;
-import com.personal.freelance_manager.model.TokenResponse;
-import com.personal.freelance_manager.model.WebResponse;
-import com.personal.freelance_manager.repository.UserRepository;
-import com.personal.freelance_manager.security.BCrypt;
+import com.personal.zeitplan.entity.User;
+import com.personal.zeitplan.model.LoginUserRequest;
+import com.personal.zeitplan.model.TokenResponse;
+import com.personal.zeitplan.model.WebResponse;
+import com.personal.zeitplan.repository.UserRepository;
+import com.personal.zeitplan.security.BCrypt;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

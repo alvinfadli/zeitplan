@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.model;
+package com.personal.zeitplan.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,13 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 
-public class WebResponse<T> {
-    
-    private T data;
+public class TokenResponse {
 
-    private String errors;
+    private String token;
+
+    private Long expiredAt;
 }

@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.model;
+package com.personal.zeitplan.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

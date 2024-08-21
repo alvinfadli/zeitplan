@@ -1,4 +1,4 @@
-package com.personal.freelance_manager.controller;
+package com.personal.zeitplan.controller;
 
 import jakarta.validation.ConstraintViolationException;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.personal.freelance_manager.model.WebResponse;
+import com.personal.zeitplan.model.WebResponse;
 
 @RestControllerAdvice
 public class ErrorController {
